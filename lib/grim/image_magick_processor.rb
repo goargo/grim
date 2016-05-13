@@ -21,6 +21,7 @@ module Grim
     end
 
     def save(pdf, index, path, options)
+      cmd_opts   = options.fetch(:cmd_opts, [])
       width      = options.fetch(:width,   Grim::WIDTH)
       density    = options.fetch(:density, Grim::DENSITY)
       quality    = options.fetch(:quality, Grim::QUALITY)
@@ -37,6 +38,7 @@ module Grim
       command << "-colorspace #{colorspace}"
       command << "-interlace none"
       command << "-density #{density}"
+      command += cmd_opts
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
 
